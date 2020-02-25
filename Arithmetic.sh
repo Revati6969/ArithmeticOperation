@@ -1,4 +1,4 @@
-##!/bin/bash -x
+#!/bin/bash -x
 echo "Arithmetic Computation"
 
 declare -A calculations
@@ -13,10 +13,15 @@ result2=$(( $a*$b+$c ))
 result3=$(( $c+$a/$b ))
 result4=$(( $a%$b+$c ))
 
-calculations[result1]="$result1"
-calculations[result2]="$result2"
-calculations[result3]="$result3"
-calculations[result4]="$result4"
+calculations[1]="$result1"
+calculations[2]="$result2"
+calculations[3]="$result3"
+calculations[4]="$result4"
  
-echo ${calculations[@]}
-echo ${!calculations[@]}
+size=${#calculations[@]}
+
+for(( index=1; index<=$size; index++ ))
+do
+	array[index]=${calculations[$index]}
+done
+
