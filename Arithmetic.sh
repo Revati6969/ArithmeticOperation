@@ -2,6 +2,7 @@
 echo "Arithmetic Computation"
 
 declare -A calculations
+declare -a array
 
 #variable
 temp=0
@@ -16,29 +17,46 @@ result2=$(( $a*$b+$c ))
 result3=$(( $c+$a/$b ))
 result4=$(( $a%$b+$c ))
 
-calculations[1]="$result1"
-calculations[2]="$result2"
-calculations[3]="$result3"
-calculations[4]="$result4"
+calculations[0]="$result1"
+calculations[1]="$result2"
+calculations[2]="$result3"
+calculations[3]="$result4"
  
 size=${#calculations[@]}
 
-for(( index=1; index<=$size; index++ ))
+for(( index=0; index<$size; index++ ))
 do
-	array[index]=${calculations[$index]}
+   array[index]=${calculations[$index]}
+
 done
 
-for (( index1=1; index1<=size; index1++ ))
+#Descending order
+for (( index1=0; index1<$size; index1++ ))
 do
-	for (( index2=1; index2<=size; index2++ ))
-	do
-		if [[ ${array[index1]} -gt ${array[index2]} ]]
-		then
-				temp=${array[index1]}
-				array[index1]=${array[index2]}
-				array[index2]=$temp
-		fi
-	done
+   for (( index2=0; index2<$size; index2++ ))
+   do
+      if [[ ${array[index1]} -gt ${array[index2]} ]]
+      then
+	   temp=${array[index1]}
+	   array[index1]=${array[index2]}
+	   array[index2]=$temp
+      fi
+   done
+
 done
 
-echo ${array[@]} 
+echo "Descending---> " ${array[@]} 
+
+#ascending order
+ascending()
+{
+array=("$@")
+for (( index3=$size-1; index3>=0; index3-- ))
+do
+   echo  ${array[$index3]}
+done
+}
+
+AscendingOrder=$( ascending ${array[@]} )
+echo "Ascending--->" $AscendingOrder
+
